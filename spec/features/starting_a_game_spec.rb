@@ -10,8 +10,8 @@ feature 'Starting a new game' do
 
   scenario 'New game page can accept Player name' do
     visit '/new_game'
-    fill_in 'Player 1 Name', :with => 'David'
-    click_button 'Go'
+    fill_in 'P1_name', :with => 'David'
+    click_button 'Submit'
     expect(page).to have_content 'Success'
   end
 
