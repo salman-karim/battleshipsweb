@@ -15,6 +15,15 @@ feature 'Starting a new game' do
     expect(page).to have_content 'Success'
   end
 
+  scenario 'New page can"t accept a empty form' do
+    visit '/new_game'
+    click_button 'Submit'
+    expect(page).to have_content "Please put your name"
+
+
+  end
+
+
 
 
 end
