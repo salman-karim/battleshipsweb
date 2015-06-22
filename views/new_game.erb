@@ -1,9 +1,5 @@
 What's your name?
-<% if @name!='' && @name %>
-Success
-<% else %>
 <form action="/new_game">
   <input type="text" name="name">
   <input type="submit" value ="Submit">
 </form>
-<% end %>

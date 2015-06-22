@@ -9,8 +9,16 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/new_game' do
-    @name = params[:name]
-    erb :new_game
+    if (params[:name] == '' || params[:name] == nil)
+      erb :new_game
+    else
+      @name = params[:name]
+      redirect '/start_game'
+    end
+  end
+
+  get '/start_game' do
+    erb :start_game
   end
 
   # start the server if ruby file executed directly
