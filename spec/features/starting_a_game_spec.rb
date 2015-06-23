@@ -12,7 +12,7 @@ feature 'Starting a new game' do
     visit '/new_game'
     fill_in 'name', :with => 'David'
     click_button 'Submit'
-    expect(page).to have_content 'Success'
+    expect(page).to have_content 'Welcome, David'
   end
 
   scenario 'New page can\'t accept a empty form' do
@@ -21,4 +21,14 @@ feature 'Starting a new game' do
     expect(page).to have_content "What's your name?"
   end
 
+  scenario 'Let\'s Go! starts a new game and loads a board' do
+  visit '/start_game'
+  click_button 'Let\'s Go!'
+  expect(page).to have_content "ABCDEF"
+end
+scenario 'Let\'s Go! starts a new game and loads a board' do
+  visit '/start_game'
+  click_button 'Let\'s Go!'
+  expect(page).to have_content "ABCDEF"
+end
 end
