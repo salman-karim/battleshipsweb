@@ -26,7 +26,10 @@ enable :sessions
 
   get '/board' do
     unless (params[:ship] == '' || params[:ship] == nil)
-    $game.player_1.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
+      begin
+        $game.player_1.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
+      rescue RuntimeError => @error
+      end
     end
 
     @board = $game.own_board_view($game.player_1)
