@@ -30,11 +30,11 @@ feature 'Starting a new game' do
   scenario 'place a ship' do
     visit '/start_game'
     click_button 'Let\'s Go!'
-    fill_in 'ship', :with => 'submarine'
+    select 'Battleship', :from => 'ship'
     fill_in 'coords', :with => 'A1'
-    fill_in 'direction' :with => 'Horizontal'
+    fill_in 'direction', :with => 'horizontally'
     click_button 'submit'
-    expect(page).to have_content "ss"
+    expect(page).to have_content "BBBB"
   end
 
 end
