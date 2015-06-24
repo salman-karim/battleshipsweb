@@ -26,8 +26,12 @@ enable :sessions
 
   get '/board' do
     @board = $game.own_board_view($game.player_1)
+    unless (params[:ship] == nil)
+      $game.player_1.place_ship Ship.send(params[:ship]), :coords
+    end
     erb :board
   end
+
   # start the server if ruby file executed directly
   run! if app_file == $0
 end

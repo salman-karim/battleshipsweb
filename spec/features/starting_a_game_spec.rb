@@ -26,9 +26,11 @@ feature 'Starting a new game' do
   click_button 'Let\'s Go!'
   expect(page).to have_content "ABCDEF"
 end
-scenario 'Let\'s Go! starts a new game and loads a board' do
+scenario 'place a ship' do
   visit '/start_game'
   click_button 'Let\'s Go!'
-  expect(page).to have_content "ABCDEF"
+  fill_in 'ship', :with => 'submarine'
+  fill_in 'coords', :with => 'A1'
+  expect(page).to have_content "ss"
 end
 end
