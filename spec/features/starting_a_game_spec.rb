@@ -22,9 +22,9 @@ feature 'Starting a new game' do
   end
 
   scenario 'Let\'s Go! starts a new game and loads a board' do
-  visit '/start_game'
-  click_button 'Let\'s Go!'
-  expect(page).to have_content "ABCDEF"
+    visit '/start_game'
+    click_button 'Let\'s Go!'
+    expect(page).to have_content "ABCDEF"
   end
 
   scenario 'place a ship' do
@@ -32,6 +32,9 @@ feature 'Starting a new game' do
     click_button 'Let\'s Go!'
     fill_in 'ship', :with => 'submarine'
     fill_in 'coords', :with => 'A1'
+    fill_in 'direction' :with => 'Horizontal'
+    click_button 'submit'
     expect(page).to have_content "ss"
   end
+
 end
