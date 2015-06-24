@@ -21,6 +21,7 @@ enable :sessions
 
   get '/start_game' do
     $game = Game.new Player, Board
+    $game.player_2.place_ship Ship.destroyer, 'A1'
     erb :start_game
   end
 
@@ -35,8 +36,12 @@ enable :sessions
     @board = $game.own_board_view($game.player_1)
     erb :board
   end
-  get '/bomb' do 
-    
+
+  get '/bomb' do
+    unless (params[:coords] == '' || params[:coords] == nil)
+      $game.player_1.shoot params[:coords].to_sym
+    end
+    @board = $game.opponent_board_view($game.player_1)
     erb :bomb
   end
 

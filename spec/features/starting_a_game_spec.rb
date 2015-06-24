@@ -48,9 +48,16 @@ feature 'Start shooting at opponents ships' do
     click_button 'submit'
   end
 
-  scenario 'have a shoot button and a place to enter shoot coordinates' do 
+  scenario 'Start Shooting button takes player to bomb page' do 
     click_button 'Start Shooting'
     expect(page).to have_content "Where do you place you bomb!!!"
-
   end
+
+  scenario 'can bomb coordinates' do 
+    click_button 'Start Shooting'
+    fill_in 'coords', :with => 'A1'
+    click_button 'Bomb!'
+    expect(page).to have_content 'Hit'
+  end
+
 end
