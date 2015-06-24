@@ -26,9 +26,9 @@ enable :sessions
 
   get '/board' do
     @board = $game.own_board_view($game.player_1)
-    unless (params[:ship] == nil)
-      $game.player_1.place_ship Ship.send(params[:ship]), :coords
-    end
+    # unless (params[:ship] == nil)
+    #   $game.player_1.place_ship Ship.send(params[:ship]), :coords
+    # end
     erb :board
   end
 

@@ -25,12 +25,13 @@ feature 'Starting a new game' do
   visit '/start_game'
   click_button 'Let\'s Go!'
   expect(page).to have_content "ABCDEF"
-end
-scenario 'place a ship' do
-  visit '/start_game'
-  click_button 'Let\'s Go!'
-  fill_in 'ship', :with => 'submarine'
-  fill_in 'coords', :with => 'A1'
-  expect(page).to have_content "ss"
-end
+  end
+
+  scenario 'place a ship' do
+    visit '/start_game'
+    click_button 'Let\'s Go!'
+    fill_in 'ship', :with => 'submarine'
+    fill_in 'coords', :with => 'A1'
+    expect(page).to have_content "ss"
+  end
 end
