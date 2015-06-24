@@ -31,6 +31,8 @@ scenario 'place a ship' do
   click_button 'Let\'s Go!'
   fill_in 'ship', :with => 'submarine'
   fill_in 'coords', :with => 'A1'
+  fill_in 'direction' :with => 'Horizontal'
+  click_button 'submit'
   expect(page).to have_content "ss"
 end
 end
