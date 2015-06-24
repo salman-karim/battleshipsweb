@@ -35,6 +35,11 @@ enable :sessions
     @board = $game.own_board_view($game.player_1)
     erb :board
   end
+  get '/bomb' do 
+    
+    erb :bomb
+  end
+
 
   # start the server if ruby file executed directly
   run! if app_file == $0

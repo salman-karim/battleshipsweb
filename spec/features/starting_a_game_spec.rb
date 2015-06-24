@@ -38,3 +38,19 @@ feature 'Starting a new game' do
   end
 
 end
+feature 'Start shooting at opponents ships' do 
+  before (:each) do
+    visit '/start_game'
+    click_button 'Let\'s Go!'
+    select 'Battleship', :from => 'ship'
+    fill_in 'coords', :with => 'A1'
+    fill_in 'direction', :with => 'horizontally'
+    click_button 'submit'
+  end
+
+  scenario 'have a shoot button and a place to enter shoot coordinates' do 
+    click_button 'Start Shooting'
+    expect(page).to have_content "Where do you place you bomb!!!"
+
+  end
+end
