@@ -30,19 +30,6 @@ enable :sessions
     end
   end
 
-
-  # elsif defined?(session[:name]) == false
-  #     $game = Game.new Player, Board
-  #     session[:name] = params[:name]
-  #     session[:name] = player_1
-  #     redirect "/start_game"
-  #   else
-  #     session[:name] = params[:name]
-  #     session[:name] = player_2
-  #     redirect "/start_game"
-  #   end
-  # end
-
   def player
     if session[:player] == :player1
       $game.player_1
