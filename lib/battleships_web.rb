@@ -25,21 +25,21 @@ enable :sessions
     erb :start_game
   end
 
-  get '/board' do
+  get '/place_ships' do
     unless (params[:ship] == '' || params[:ship] == nil)
       begin
-        $game.player_1.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
+        $game.player_1.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
       rescue RuntimeError => @error
       end
     end
 
     @board = $game.own_board_view($game.player_1)
-    erb :board
+    erb :place_ships
   end
 
   get '/bomb' do
     unless (params[:coords] == '' || params[:coords] == nil)
-      $game.player_1.shoot params[:coords].to_sym
+      @hit_miss = $game.player_1.shoot params[:coords].upcase.to_sym
     end
     @board = $game.opponent_board_view($game.player_1)
     erb :bomb
