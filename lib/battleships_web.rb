@@ -20,20 +20,50 @@ enable :sessions
   end
 
   get '/start_game' do
-    $game = Game.new Player, Board
-    $game.player_2.place_ship Ship.destroyer, 'A1'
-    erb :start_game
+    unless session[:name] == 'dave'
+      $game = Game.new Player, Board
+      session[:player] = :player1
+      erb :start_game
+    else
+      session[:player] = :player2
+      erb :start_game
+    end
   end
+
+
+  # elsif defined?(session[:name]) == false
+  #     $game = Game.new Player, Board
+  #     session[:name] = params[:name]
+  #     session[:name] = player_1
+  #     redirect "/start_game"
+  #   else
+  #     session[:name] = params[:name]
+  #     session[:name] = player_2
+  #     redirect "/start_game"
+  #   end
+  # end
+
 
   get '/place_ships' do
     unless (params[:ship] == '' || params[:ship] == nil)
       begin
-        $game.player_1.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
+
+        if session[:player] == :player1
+          $game.player_1.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
+        else
+          $game.player_2.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
+        end
+
       rescue RuntimeError => @error
       end
     end
 
-    @board = $game.own_board_view($game.player_1)
+        if session[:player] == :player1
+          @board = $game.own_board_view($game.player_1)
+        else
+          @board = $game.own_board_view($game.player_2)
+        end
+
     erb :place_ships
   end
 
