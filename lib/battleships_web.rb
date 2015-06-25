@@ -38,8 +38,11 @@ enable :sessions
   end
 
   get '/bomb' do
-    unless (params[:coords] == '' || params[:coords] == nil)
-      @hit_miss = $game.player_1.shoot params[:coords].upcase.to_sym
+    unless (params[:coords] == nil)
+      begin
+        @hit_miss = $game.player_1.shoot params[:coords].to_sym
+      rescue RuntimeError => @error
+      end
     end
     @board = $game.opponent_board_view($game.player_1)
     erb :bomb
