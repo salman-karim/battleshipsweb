@@ -38,7 +38,9 @@ feature 'Starting a new game' do
   end
 
 end
-feature 'Start shooting at opponents ships' do
+
+
+feature 'Throwing bombs' do
   before (:each) do
     visit '/start_game'
     click_button 'Let\'s Go!'
@@ -48,16 +50,41 @@ feature 'Start shooting at opponents ships' do
     click_button 'submit'
   end
 
-  scenario 'Start Shooting button takes player to bomb page' do
-    click_button 'Start Shooting'
-    expect(page).to have_content "Where do you place you bomb!!!"
+  context 'being shooting' do
+
+    scenario 'Start Shooting button takes player to bomb page' do
+      click_button 'Start Shooting'
+      expect(page).to have_content "Where do you place you bomb!!!"
+    end
+
+    scenario 'can bomb coordinates' do
+      click_button 'Start Shooting'
+      fill_in 'coords', :with => 'A1'
+      click_button 'Bomb!'
+      expect(page).to have_content 'hit'
+    end
   end
 
-  scenario 'can bomb coordinates' do
-    click_button 'Start Shooting'
-    fill_in 'coords', :with => 'A1'
-    click_button 'Bomb!'
-    expect(page).to have_content 'hit'
+  context 'Start shooting at opponents ships' do
+    # before (:each) do
+    #   visit '/start_game'
+    #   click_button 'Let\'s Go!'
+    #   select 'Battleship', :from => 'ship'
+    # #   fill_in 'coords', :with => 'A1'
+    # #   select 'Horizontally', :from => 'direction'
+    # #   click_button 'submit'
+    # end
+
+    scenario 'can win game' do
+      click_button 'Start Shooting'
+      fill_in 'coords', :with => 'A1'
+      click_button 'Bomb!'
+      fill_in 'coords', :with => 'B1'
+      click_button 'Bomb!'
+      expect(page).to have_content 'Player_1 wins!'
+    end
   end
+
+
 
 end

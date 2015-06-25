@@ -41,11 +41,20 @@ enable :sessions
     unless (params[:coords] == nil)
       begin
         @hit_miss = $game.player_1.shoot params[:coords].to_sym
+        @winstatus = $game.has_winner?
       rescue RuntimeError => @error
       end
     end
     @board = $game.opponent_board_view($game.player_1)
-    erb :bomb
+    if @winstatus
+      redirect "/winnerpage"
+    else
+      erb :bomb
+    end
+  end
+
+  get '/winnerpage' do
+    "Player_1 wins!"
   end
 
 
