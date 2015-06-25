@@ -43,7 +43,6 @@ def place ship
   end
 end
 
-
 def random_coord
   BOARD.sample
 end
