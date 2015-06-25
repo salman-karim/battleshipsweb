@@ -20,7 +20,7 @@ enable :sessions
   end
 
   get '/start_game' do
-    unless session[:name] == 'dave'
+    unless defined?($game)
       $game = Game.new Player, Board
       session[:player] = :player1
       erb :start_game
@@ -43,39 +43,34 @@ enable :sessions
   #   end
   # end
 
+  def player
+    if session[:player] == :player1
+      $game.player_1
+    else
+      $game.player_2
+    end
+  end
 
   get '/place_ships' do
     unless (params[:ship] == '' || params[:ship] == nil)
       begin
-
-        if session[:player] == :player1
-          $game.player_1.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
-        else
-          $game.player_2.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
-        end
-
+        player.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
       rescue RuntimeError => @error
       end
     end
-
-        if session[:player] == :player1
-          @board = $game.own_board_view($game.player_1)
-        else
-          @board = $game.own_board_view($game.player_2)
-        end
-
-    erb :place_ships
+      @board = $game.own_board_view(player)
+      erb :place_ships
   end
 
   get '/bomb' do
     unless (params[:coords] == nil)
       begin
-        @hit_miss = $game.player_1.shoot params[:coords].to_sym
+        @hit_miss = player.shoot params[:coords].to_sym
         @winstatus = $game.has_winner?
       rescue RuntimeError => @error
       end
     end
-    @board = $game.opponent_board_view($game.player_1)
+    @board = $game.opponent_board_view(player)
     if @winstatus
       redirect "/winnerpage"
     else
