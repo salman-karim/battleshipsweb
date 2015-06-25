@@ -20,7 +20,7 @@ enable :sessions
   end
 
   get '/start_game' do
-    unless defined?($game)
+    unless session[:name] == 'dave'
       $game = Game.new Player, Board
       session[:player] = :player1
       erb :start_game
@@ -48,7 +48,7 @@ enable :sessions
     unless (params[:ship] == '' || params[:ship] == nil)
       begin
 
-        if session[:player] = :player1
+        if session[:player] == :player1
           $game.player_1.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
         else
           $game.player_2.place_ship Ship.send(params[:ship]), params[:coords].upcase, params[:direction]
@@ -58,7 +58,7 @@ enable :sessions
       end
     end
 
-        if session[:player] = :player1
+        if session[:player] == :player1
           @board = $game.own_board_view($game.player_1)
         else
           @board = $game.own_board_view($game.player_2)
