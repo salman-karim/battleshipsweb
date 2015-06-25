@@ -44,7 +44,7 @@ feature 'Throwing bombs' do
   before (:each) do
     visit '/start_game'
     click_button 'Let\'s Go!'
-    select 'Battleship', :from => 'ship'
+    select 'Submarine', :from => 'ship'
     fill_in 'coords', :with => 'A1'
     select 'Horizontally', :from => 'direction'
     click_button 'submit'
@@ -82,6 +82,14 @@ feature 'Throwing bombs' do
       fill_in 'coords', :with => 'B1'
       click_button 'Bomb!'
       expect(page).to have_content 'Player_1 wins!'
+    end
+
+    scenario 'can lose game' do
+      click_button 'Start Shooting'
+      $game.player_2.shoot :A1
+      fill_in 'coords', :with => 'A1'
+      click_button 'Bomb!'
+      expect(page).to have_content 'Player_2 wins!'
     end
   end
 

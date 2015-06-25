@@ -54,7 +54,8 @@ enable :sessions
   end
 
   get '/winnerpage' do
-    "Player_1 wins!"
+    @p1wins = $game.player_1.winner?
+    erb :winner
   end
 
 
