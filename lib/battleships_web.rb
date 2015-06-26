@@ -20,6 +20,7 @@ enable :sessions
   end
 
   get '/start_game' do
+    p defined?($game)
     unless defined?($game)
       $game = Game.new Player, Board
       session[:player] = :player1
@@ -31,9 +32,13 @@ enable :sessions
   end
 
   def player
+    p $game
+    # p session[:player]
     if session[:player] == :player1
+      p "Player is player 1"
       $game.player_1
     else
+      p "Player is player 2"
       $game.player_2
     end
   end
